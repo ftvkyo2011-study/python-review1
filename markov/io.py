@@ -38,7 +38,7 @@ class Input:
         :param text: text with unwanted symbols
         :return: filtered text
         """
-        text = re.sub(r"[{}]+".format("!\"#$%&()*+,./:;<=>?@[\]^_{|}~\n"),
+        text = re.sub(r"[{}]+".format("!\"#$%&()*+,./:;<=>?@[\\]^_{|}~\n"),
                       "",
                       text)
         text = re.sub(r"\s+", " ", text)
