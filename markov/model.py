@@ -23,8 +23,9 @@ class Model:
         d[left][right] += 1
 
     def __get_next_word(self, current_word):
-        # TODO: weighted choice
-        return random.choice(list(self._data[current_word].keys()))
+        res = random.choices(tuple(self._data[current_word].keys()),
+                             weights=tuple(self._data[current_word].values()))
+        return res[0]
 
     def process(self, io: markov.io.Input, make_lowercase):
         for file in io.files():
