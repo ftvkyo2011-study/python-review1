@@ -5,6 +5,12 @@ import markov
 
 
 def main(args):
+    """
+    Secondary function of text generator - collects data into model.
+    Works with model file aka args.model or with standard input.
+    :param args: argparse result. Should contain "model", "input_dir" and "lc".
+    :return: None
+    """
     model = markov.model.Model()
     io = markov.io.Input(args.input_dir)
 

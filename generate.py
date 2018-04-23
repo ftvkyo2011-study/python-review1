@@ -5,6 +5,13 @@ import markov
 
 
 def main(args):
+    """
+    Main function of text generator - generates sequences of words from model.
+    Works with model aka args.model.
+    :param args: argparse result. Should contain "model", "seed", "length" and
+    "output"
+    :return: None
+    """
     model = markov.model.Model()
 
     with open(args.model) as input_file:
