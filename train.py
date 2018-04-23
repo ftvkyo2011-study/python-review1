@@ -2,17 +2,13 @@
 
 import argparse
 import markov
-import os.path
 
 
 def main(args):
     model = markov.model.Model()
+    io = markov.io.Input(args.input_dir)
 
-    files = markov.input.Input(args.input_dir)
-    for contents in files.read_strings():
-        model.process(contents, args.lc)
-
-    print(model._data)
+    model.process(io, args.lc)
 
     with open(args.model, "w") as output_file:
         model.save(output_file)
