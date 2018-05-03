@@ -50,6 +50,9 @@ class Input:
 
 
 class Output:
+    """
+    Class for outputting.
+    """
     symbols = r".,!?&:;"
 
     @staticmethod
