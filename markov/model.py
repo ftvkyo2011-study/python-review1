@@ -78,11 +78,11 @@ class Model:
                 if last_word:
                     words = [last_word] + words
                 last_word = words[-1]
-                for word1, word2 in self.iterate_over_pairs(string.split()):
+                for word1, word2 in self.__iterate_over_pairs(string.split()):
                     self.__add_connection((word1, word2))
 
     @staticmethod
-    def iterate_over_pairs(words: list):
+    def __iterate_over_pairs(words: list):
         """
         Iterates over pairs of words
         :param words: List of words to be iterated over
