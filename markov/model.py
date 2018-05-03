@@ -10,6 +10,7 @@ class Model:
     """
     Contains all logic for creating sequences of words.
     """
+
     def __init__(self):
         self._data = collections.defaultdict(
             lambda: collections.defaultdict(lambda: 0))
@@ -28,7 +29,10 @@ class Model:
         :param file: file, where model will be saved
         :return: None
         """
-        file.write(json.dumps(self._data, sort_keys=True, indent=4))
+        json.dump(self._data, file,
+                  sort_keys=True,
+                  indent=1,
+                  ensure_ascii=False)
 
     def __add_connection(self, pair):
         """
@@ -36,9 +40,7 @@ class Model:
         :param pair: Words to be connected
         :return: None
         """
-        d = self._data
-        left, right = pair
-        d[left][right] += 1
+        self._data[pair[0]][pair[1]] += 1
 
     def __get_next_word(self, current_word):
         """
@@ -62,22 +64,22 @@ class Model:
         """
         for file in io.files():
             last_word = None
-            for s in file:
-                if "decode" in dir(s):
-                    s = s.decode()
-                s = markov.io.Input.filter_symbols(s)
+            for string in file:
+                if "decode" in dir(string):
+                    string = string.decode()
+                string = markov.io.Input.prepare_symbols(string)
                 if make_lowercase:
-                    s = s.lower()
+                    string = string.lower()
 
-                if s.isspace() or not s:
+                if string.isspace() or not string:
                     continue
 
-                words = s.split()
+                words = string.split()
                 if last_word:
                     words = [last_word] + words
                 last_word = words[-1]
-                for w1, w2 in self.iterate_over_pairs(s.split()):
-                    self.__add_connection((w1, w2))
+                for word1, word2 in self.iterate_over_pairs(string.split()):
+                    self.__add_connection((word1, word2))
 
     @staticmethod
     def iterate_over_pairs(words: list):

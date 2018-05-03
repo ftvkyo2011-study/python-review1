@@ -17,8 +17,7 @@ def main(args):
     with open(args.model) as input_file:
         model.load(input_file.read())
 
-    for word in model.get_random_sequence(args.length, args.seed):
-        print(word, end=' ')
+    markov.io.Output.print(model.get_random_sequence(args.length, args.seed))
 
 
 if __name__ == "__main__":
