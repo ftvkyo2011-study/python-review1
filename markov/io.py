@@ -3,6 +3,7 @@
 import os
 import sys
 import re
+import itertools
 
 
 class Input:
@@ -56,14 +57,18 @@ class Output:
     symbols = r".,!?&:;"
 
     @staticmethod
-    def print(words):
+    def print(words, block_size):
         """
         Processes a word list and prints the text.
         :param words: Iterable with words
+        :param block_size Amount of words to print at once
         :return: None
         """
-        text = " ".join(words)
-        text = re.sub(r" ([{}])+".format(Output.symbols),
-                      r"\1",
-                      text)
-        print(text.capitalize())
+        while True:
+            text = " ".join(itertools.islice(words, block_size))
+            text = re.sub(r" ([{}])+".format(Output.symbols),
+                          r"\1",
+                          text)
+            if not text:
+                break
+            print(text.capitalize(), end=' ')

@@ -17,7 +17,7 @@ def main(args):
     with open(args.model) as input_file:
         model.load(input_file.read())
 
-    markov.io.Output.print(model.get_random_sequence(args.length, args.seed))
+    markov.io.Output.print(model.get_random_sequence(args.length, args.seed), args.block)
 
 
 if __name__ == "__main__":
@@ -35,6 +35,9 @@ if __name__ == "__main__":
     parser.add_argument("--output",
                         default=None,
                         help="Output file (stdout if None)")
+    parser.add_argument("--block",
+                        default=10,
+                        help="Amount of words to print at once (default - 10)")
     namespace = parser.parse_args()
 
     main(namespace)
