@@ -40,11 +40,11 @@ class Input:
         :param text: text with unwanted symbols
         :return: filtered text
         """
-        text = re.sub(r"([{}])+".format(Output.symbols),
-                      r" \1",
-                      text)
-        text = re.sub(r"[{}]+".format("\"#$%()*+/<=>@[\\]^_{|}~\n"),
+        text = re.sub(r"(?![\w{}]+)".format(Output.symbols),
                       r"",
+                      text)
+        text = re.sub(r"([{}]+)".format(Output.symbols),
+                      r" \1",
                       text)
         text = re.sub(r"\s+", " ", text)
         return text
